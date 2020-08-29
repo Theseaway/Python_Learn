@@ -41,8 +41,8 @@ def find_min(eng,dir,channels):
                     for j in range(1,column):
                         if minre>eng[0][j]:
                             minre=eng[0][j]
-                    index[1][i]=j#记录最小值所在的位置
-                elif i>0:
+                    index[i]=j#记录最小值所在的位置
+                #elif i>0:
                     #此时已有开端点，为了寻找下一个点，可以直接从此点往下寻找
 
     return 0
@@ -62,7 +62,7 @@ b,g,r=cv.split(img)
 #cv.imshow("Green image",g)
 size=img.shape#size是一个包含3个数据的值，分别是行数、列数和通道数
 row,column,channel=size
-gray_img=cv.imread("/home/sea/图片/test_SC.jpg",cv.IMREAD_GRAYSCALE)
+gray_img=cv.imread("test_SC.jpg",cv.IMREAD_GRAYSCALE)
 #cv.namedWindow("Image")
 print("原始图片的大小为",img.shape)
 cv.imshow("Original_Image",img)
