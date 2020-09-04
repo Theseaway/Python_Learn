@@ -1,6 +1,8 @@
+
 from tqdm import trange
 from imageio import imread, imwrite
 from scipy.ndimage.filters import convolve
+
 import sys
 import numpy as np
 def get_eng(image):
