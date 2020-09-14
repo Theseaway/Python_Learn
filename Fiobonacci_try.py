@@ -1,8 +1,3 @@
-# -*- coding: UTF-8 -*-
- 
-# Filename : test.py
-# author by : www.runoob.com
- 
 # Python 斐波那契数列实现
  
 # 获取用户输入数据
@@ -21,10 +16,10 @@ elif nterms == 1:
    print(n1)
 else:
    print("斐波那契数列：")
-   print(n1,",",n2,end=" , ")
+   print(n1,",",n2,end=",")
    while count < nterms:
        nth = n1 + n2
-       print(nth,end=" , ")
+       print(nth,end=",")
        # 更新值
        n1 = n2
        n2 = nth

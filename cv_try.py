@@ -28,35 +28,43 @@ def find_min(eng,row,column):
     #即不能出现跳变，而只能缓慢的进行变化,当出现剧烈变化时，图像本身会发生畸变
     #为了达到这种效果，首先应该寻找一条总和最小的并且应该满足相关限制条件
     #这里的dir表示求解最小能量表是逐行还是逐列
+    M=eng.copy()
     route=np.zeros_like(eng,dtype=np.int)
     for i in range(1,row):
-        for j in range(0,column):
+        for j in range(0,column-2):
             if j==0:
-                temp=np.argmin(eng[i-1,j:j+2])
+                temp=np.argmin(eng[i-1,j:j+2])#得到的结果是这个数组中的索引
                 route[i,j]=temp+j
+                min_energy=eng[i-1,temp+j]
             elif j>0:
                 temp=np.argmin(eng[i-1,j-1:j+2])
                 route[i,j]=temp+j-1
+                min_energy=eng[i-1,temp+j]
                     #此已有开端点，为了寻找下一个点，可以直接从此点往下寻找
-    return route
+                M[i,j]+=min_energy
+
+    return  M,route
+
+def carve_column(energy,route,row):
+    j=np.argmin(energy[-1])
+    for i in reversed(range(row)):
+        mask[i,j]=False
+        j=route[i,j]
+    mask =np.stack([mask]*3,axis=2)
+    newimg=energy[mask].reshape(row,column,-1,3)
+
+
 
 
 img=imread("test_SC.jpg")
 size=img.shape#size是一个包含3个数据的值，分别是行数、列数和通道数
 row,column,channel=size
-
 gray_img=imread("test_SC.jpg")
 print("原始图片的大小为",img.shape)
 imwrite("Original_Image.jpg",img)
 print("灰度图的大小为",gray_img.shape)
-
 eng_img=get_eng(img)
 imwrite("./energy image.jpg",eng_img)
 
-start=390
-route=find_min(eng_img,row,column)
-
-for i in range(1,row):
-    for j in range(1,column):
-        eng_img
-imwrite("Route in Image.jpg",gray_img)
+imgout,route=find_min(eng_img,row,column)
+imwrite("Route in Image.jpg",imgout)
